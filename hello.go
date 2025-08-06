@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func Hello(name string, language string) string {
 	if name == "" {
@@ -19,12 +22,13 @@ func Hello(name string, language string) string {
 	return "Hello, " + name
 }
 
-func Repeat(character string, loop_time int)  (result string) {
+func Repeat(character string, loop_time int)  string {
+	var repeatedString strings.Builder
 	for i := 0; i < loop_time; i++ {
-		result += character
+		repeatedString.WriteString(character)
 	}
 
-	return result;
+	return repeatedString.String();
 }
 
 func main(){
