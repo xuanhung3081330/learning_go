@@ -1,9 +1,14 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"math"
 )
+
+// The 'var' keyword allows us to define values global to the package
+var ErrInsufficientFunds = errors.New("Cannot withdraw, insufficient funds")
+
 
 type Shape interface {
 	Area() float64
@@ -50,8 +55,13 @@ func (w *Wallet) Balance() Bitcoin {
 	return w.balance
 }
 
-func (w *Wallet) Withdraw(amount Bitcoin){
+func (w *Wallet) Withdraw(amount Bitcoin) error {
+	if amount > w.balance {
+		return ErrInsufficientFunds
+	}
+
 	w.balance -= amount
+	return nil
 }
 
 // This function is implemented the Stringer interface, which lets you define how your type is printed when 
