@@ -50,6 +50,10 @@ func (w *Wallet) Balance() Bitcoin {
 	return w.balance
 }
 
+func (w *Wallet) Withdraw(amount Bitcoin){
+	w.balance -= amount
+}
+
 // This function is implemented the Stringer interface, which lets you define how your type is printed when 
 // used with the %s format string in prints.
 func (b Bitcoin) String() string {
