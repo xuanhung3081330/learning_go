@@ -1,6 +1,8 @@
 package main
 
-import "math"
+import (
+	"math"
+)
 
 type Shape interface {
 	Area() float64
@@ -30,4 +32,17 @@ type Triangle struct {
 
 func (t Triangle) Area() float64 {
 	return (t.Base * t.Height) * 0.5
+}
+
+type Wallet struct {
+	balance int
+}
+
+func (w *Wallet) Deposit(amount int){
+	//fmt.Printf("Address of balance in Deposit is %p \n", &w.balance)
+	w.balance += amount
+}
+
+func (w *Wallet) Balance() int {
+	return w.balance
 }
