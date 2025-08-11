@@ -26,14 +26,54 @@ func TestSearch(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	dictionary := Dictionary{}
-	word := "test"
-	definition := "this is just a test"
-	dictionary.Add(word, definition)
+	t.Run("new word", func(t *testing.T) {
+		dictionary := Dictionary{}
+		word := "test"
+		definition := "this is just a test"
+		err := dictionary.Add(word, definition)
 
-	want := "this is just a test"
-	got, err := dictionary.Search(word)
-	assertDefinitions(t, got, want, err)
+		assertErrorMap(t, err, nil)
+
+		want := "this is just a test"
+		got, err := dictionary.Search(word)
+		assertDefinitions(t, got, want, err)
+	})
+
+	t.Run("existing word", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+		dictionary := Dictionary{word: definition}
+		err := dictionary.Add(word, "new test")
+
+		assertErrorMap(t, err, ErrWordExists)
+
+		want := "this is just a test"
+		got, err := dictionary.Search(word)
+		assertDefinitions(t, got, want, err)
+	})
+}
+
+func TestUpdate(t *testing.T) {
+	t.Run("existing word", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+		dictionary := Dictionary{word: definition}
+		newDefinition := "new definition"
+
+		err := dictionary.Update(word, newDefinition)
+		assertErrorMap(t, err, nil)
+
+		got, err := dictionary.Search(word)
+		assertDefinitions(t, got, newDefinition, err)
+	})
+
+	t.Run("new word", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+		dictionary := Dictionary{}
+		err := dictionary.Update(word, definition)
+		assertErrorMap(t, err, ErrWordDoesNotExist)
+	})
 }
 
 func assertDefinitions(t testing.TB, got, want string, err error) {
