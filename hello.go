@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -29,8 +28,4 @@ func Repeat(character string, loop_time int)  string {
 	}
 
 	return repeatedString.String();
-}
-
-func main(){
-	fmt.Println(Hello("Hung", ""))
 }
