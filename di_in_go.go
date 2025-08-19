@@ -57,14 +57,14 @@ func (s *UserService) PrintUser(id int) {
 }
 
 // Step 5: main (Manual DI)
-func main(){
-	// In production
-	repo := PostgresUserRepo{}
-	service := NewUserService(repo) // Inject dependency
-	service.PrintUser(2)
+//func main(){
+//	// In production
+//	repo := PostgresUserRepo{}
+//	service := NewUserService(repo) // Inject dependency
+//	service.PrintUser(2)
 
 	// In testing (swap dependency)
-	mockRepo := MockUserRepo{}
-	mockService := NewUserService(mockRepo)
-	mockService.PrintUser(4)
-}
+//	mockRepo := MockUserRepo{}
+//	mockService := NewUserService(mockRepo)
+//	mockService.PrintUser(4)
+//}
